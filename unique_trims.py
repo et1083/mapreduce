@@ -15,34 +15,26 @@ def mapper(record):
     # value: document contents
     key = record[0]
     value = record[1]
-    #value= value[:-10]
-      
+    value= value[:-10]
     mr.emit_intermediate(1, value)
 
 def reducer(key, list_of_values):
     # key: word
     # value: list of occurrence counts
     total = 0
-    duplicates = 0
+    duplicate = []
     holder = []
     for v in list_of_values:
-      v=v[:-10]
-      total = 0
       
+      if v !=duplicate:
+        mr.emit(v)
+      total = 0
       holder = v
       for v in list_of_values:
-        v=v[:-10]
-	
         if holder == v:
 	  total +=1
-        if total ==2:
-	  duplicate = v
-	    mr.emit(holder)
-	    duplicates +=1 
-	    
-      #print total
-      if total < 2:
-        mr.emit(holder)
+        if total == 2:
+	  duplicate = holder 
 
 # Do not modify below this line
 # =============================
