@@ -22,27 +22,30 @@ def reducer(key, list_of_values):
     # value: everything else in record
     
     order_list = []
-    item_list = []
+    #item_list = []
     final_list = []
     
     for v in list_of_values:
       if v[0].encode('ascii', 'ignore') == "order":
         order_list.extend(v) 
-    i=0	
+    
     for y in list_of_values: 
-      item_list[:] = [] 
+      final_list[:] = [] 
       
       if y[0].encode('ascii', 'ignore') == "line_item":
            
-        item_list.extend(order_list)  
+        final_list.extend(order_list)  
         #print final_list
-        item_list.extend(y)
+        final_list.extend(y)
+      
+      #  i = len(final_list)
+      #  i +=1 	
+      #  final_list.insert(i,item_list) 
+      #  for x in final_list:
+      # 	  x.encode('ascii', 'ignore')
+        print map(str, final_list) #.encode('ascii', 'ignore')
 	
-      #final_list.insert(i,item_list) 
-      #i +=1
-      print item_list
-	
-      #mr.emit(new_list)
+        #mr.emit((final_list))
 	    
 
 # Do not modify below this line
