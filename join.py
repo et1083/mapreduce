@@ -1,5 +1,6 @@
 import MapReduce
 import sys
+import json
 
 """
 Word Count Example in the Simple Python MapReduce Framework
@@ -29,23 +30,22 @@ def reducer(key, list_of_values):
       if v[0].encode('ascii', 'ignore') == "order":
         order_list.extend(v) 
     
+    
     for y in list_of_values: 
+      
       final_list[:] = [] 
       
       if y[0].encode('ascii', 'ignore') == "line_item":
            
         final_list.extend(order_list)  
-        #print final_list
+        
         final_list.extend(y)
-      
-      #  i = len(final_list)
-      #  i +=1 	
-      #  final_list.insert(i,item_list) 
-      #  for x in final_list:
-      # 	  x.encode('ascii', 'ignore')
-        print map(str, final_list) #.encode('ascii', 'ignore')
 	
-        #mr.emit((final_list))
+	#print final_list
+	#print map(str, final_list)
+	jenc = json.JSONEncoder()
+	print jenc.encode(final_list)
+        #mr.emit((y))
 	    
 
 # Do not modify below this line
