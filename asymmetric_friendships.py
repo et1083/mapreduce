@@ -14,8 +14,10 @@ def mapper(record):
     # key: document identifier
     # value: document contents
     key = record[0]
-    value = record[1]
-    mr.emit_intermediate(1, record)
+    value = {}
+    value[0] = record[0].encode('ascii', 'ignore')
+    value[1]=record[1].encode('ascii', 'ignore')
+    mr.emit_intermediate(key, value)
 
 def reducer(key, list_of_values):
     # key: person
@@ -24,28 +26,15 @@ def reducer(key, list_of_values):
     person_friend = []
     friend_person = []
     match = []
-    answer_key =[]
+    stick = list_of_values[0]
+    print list_of_values
+    
     #print list_of_values
-    for v in list_of_values:
-      #friend_person = [v[1].encode('ascii', 'ignore'), v[0].encode('ascii', 'ignore')]
-      #print v  
-      person_friend = [v[0].encode('ascii', 'ignore'), v[1].encode('ascii', 'ignore')]
-      friend_person = [v[1].encode('ascii', 'ignore'), v[0].encode('ascii', 'ignore')]
-      
-      total = 0 
-      for v in list_of_values:
-        match = [v[0].encode('ascii', 'ignore'), v[1].encode('ascii', 'ignore')]
-        #print match, friend_person
-	if total != 1:
-          if friend_person == match:
-            total = 1
-      	    
-      if total == 0:
-        answer_key = [person_friend[0], person_friend[1]]
-	tuple(person_friend)
-	tuple(friend_person)
-        mr.emit(person_friend)
-	mr.emit(friend_person)
+    #for v in list_of_values:
+     # print key, v
+   
+    person = key   
+	#mr.emit(friend_person)
 
 # Do not modify below this line
 # =============================
