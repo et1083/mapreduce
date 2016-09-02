@@ -23,31 +23,27 @@ def reducer(key, list_of_values):
     # value: everything else in record
     
     order_list = []
-    #item_list = []
+    
     final_list = []
+    
     
     for v in list_of_values:
       if v[0].encode('ascii', 'ignore') == "order":
-        order_list.extend(v) 
-    
-    
+        order_list = v
+    	
     for y in list_of_values: 
       
       final_list[:] = [] 
       
       if y[0].encode('ascii', 'ignore') == "line_item":
            
-        final_list.extend(order_list)  
-        
-        final_list.extend(y)
+        final_list.extend(order_list)
 	
-	#print final_list
-	#print map(str, final_list)
-	jenc = json.JSONEncoder()
-	print jenc.encode(final_list)
-        #mr.emit((y))
-	    
-
+	final_list.extend(y)  
+        
+	
+	mr.emit(final_list[:])
+        
 # Do not modify below this line
 # =============================
 if __name__ == '__main__':
